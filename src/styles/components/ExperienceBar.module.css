@@ -1,0 +1,35 @@
+/* 
+Next.js vem com uma funcionalidade chamada css modules, permitindo que um css esteja disponível para um único componente
+assim evita que ele afete os outros componentes da aplicação, em projetos grandes isso se torna necessário, devido a ser muito
+difícil saber de onde vem o css que está afetando algum componente x
+*/
+
+.experienceBar {
+  display: flex;
+  align-items: center;
+}
+
+.experienceBar span {
+  font-size: 1rem;
+}
+
+.experienceBar > div { /*Primeiro children div depois dela*/
+  flex: 1; /*Largura máxima possivel do container*/
+  height: 4px;
+  border-radius: 4px;
+  background-color: var(--gray-line);
+  margin: 0 1.5rem;
+  position: relative; /*Tira a referência da página e atribui a este elemento.*/
+}
+
+.experienceBar > div > div {
+  height: 4px;
+  border: 4px;
+  background-color: var(--green); 
+}
+
+span.currentExperience {
+  position: absolute;
+  top: 12px;
+  transform: translateX(-50%); /*Desloca -50% pra esquerda, que é metade do tamanho do elemento*/
+}

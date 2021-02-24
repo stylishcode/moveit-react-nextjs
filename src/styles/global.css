@@ -60,33 +60,3 @@ a {
   display: flex;
   flex-direction: column;
 }
-
-.experience-bar {
-  display: flex;
-  align-items: center;
-}
-
-.experience-bar span {
-  font-size: 1rem;
-}
-
-.experience-bar > div { /*Primeiro children div depois dela*/
-  flex: 1; /*Largura máxima possivel do container*/
-  height: 4px;
-  border-radius: 4px;
-  background-color: var(--gray-line);
-  margin: 0 1.5rem;
-  position: relative; /*Tira a referência da página e atribui a este elemento.*/
-}
-
-.experience-bar > div > div {
-  height: 4px;
-  border: 4px;
-  background-color: var(--green); 
-}
-
-span.current-experience {
-  position: absolute;
-  top: 12px;
-  transform: translateX(-50%); /*Desloca -50% pra esquerda, que é metade do tamanho do elemento*/
-}
