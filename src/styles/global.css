@@ -1,0 +1,92 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Variáveis css */
+:root {
+	--white: #fff;
+	--background: #F2F3F5;
+	--gray-line: #DCDDE0;
+	--text: #666666;
+	--text-highlight: #B3B9FF;
+	--title: #2E384D;
+	--red: #E83F5B;
+	--green: #4CD62B;
+	--blue: #5965E0;
+	--blue-dark: #4953B8;
+	--blue-twitter: #2AA9E0;
+}
+
+@media(max-width: 1080px) {
+  html {
+    font-size: 93.75%; /*Diminui 1px dos 16px originais, ficando 15px, para resoluções menores que 1080px*/
+  }
+}
+
+@media(max-width: 720px) {
+  html {
+    font-size: 87.5%; /*Diminui 2px dos 16px originais, ficando 15px, para resoluções menores que 720px*/
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+}
+
+body, input, textarea, button {
+  /* weight, size, font-family */
+  font: 400 1rem "Inter", sans-serif; /*1rem é igual a 16px*/
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  /*Herda a cor do container dos links*/
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  height: 100vh;
+  max-width: 992px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.experience-bar {
+  display: flex;
+  align-items: center;
+}
+
+.experience-bar span {
+  font-size: 1rem;
+}
+
+.experience-bar > div { /*Primeiro children div depois dela*/
+  flex: 1; /*Largura máxima possivel do container*/
+  height: 4px;
+  border-radius: 4px;
+  background-color: var(--gray-line);
+  margin: 0 1.5rem;
+  position: relative; /*Tira a referência da página e atribui a este elemento.*/
+}
+
+.experience-bar > div > div {
+  height: 4px;
+  border: 4px;
+  background-color: var(--green); 
+}
+
+span.current-experience {
+  position: absolute;
+  top: 12px;
+  transform: translateX(-50%); /*Desloca -50% pra esquerda, que é metade do tamanho do elemento*/
+}
