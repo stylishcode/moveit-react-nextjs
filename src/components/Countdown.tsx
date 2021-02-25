@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { ChallengesContext } from "../contexts/ChallengesContext";
 import styles from "../styles/components/Countdown.module.css";
 
 /* variável de tipagem global para saber que é um tipo Timeout, é opcional */
 let countdownTimeout: NodeJS.Timeout;
 
 export function Countdown() {
+  const { startNewChallenge } = useContext(ChallengesContext);
+
   const [time, setTime] = useState(0.1 * 60); /* 25 * 60 é 25min em segundos */
   const [isActive, setIsActive] = useState(false); /* Verifica se o contador está parado ou em execução */
   const [hasFinished, setHasFinished] = useState(false);
@@ -42,6 +45,7 @@ export function Countdown() {
     } else if (isActive && time === 0) {
       setHasFinished(true); /* Finalizou o tempo */
       setIsActive(false);
+      startNewChallenge();
     }
   }, [isActive, time]) /* isActive faz a função executar uma vez, time faz a função executar enquanto o if for verdade*/
 
