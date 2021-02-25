@@ -39,3 +39,29 @@ e não o span das divs que estão dentro de countdownContainer*/
   font-size: 6.25rem;
   margin: 0 0.5rem;
 }
+
+.countdownButton {
+  width: 100%;
+  height: 5rem;
+
+  margin-top: 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 5px;
+
+  background-color: var(--blue);
+  color: var(--white);
+
+  font-size: 1.25rem;
+  font-weight: 600;
+
+  transition: background-color 0.2s; /*Toda vez que a background-color desse botão mudar, vai ter 0.2s de trans.*/
+}
+
+.countdownButton:hover {
+  background-color: var(--blue-dark);
+}
