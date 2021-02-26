@@ -1,8 +1,8 @@
-import { createContext, useState, ReactNode } from "react";
+import { createContext, useState, ReactNode, useEffect } from "react";
 import challenges from "../../challenges.json"; /* Array de objetos */
 
 interface Challenge {
-  type: 'body' | 'eye';
+  type: "body" | "eye";
   description: string;
   amount: number;
 }
@@ -16,6 +16,7 @@ interface ChallengesContextData {
   levelUp: () => void;
   startNewChallenge: () => void;
   resetChallenge: () => void;
+  completeChallenge: () => void;
 }
 
 interface ChallengesProviderProps {
@@ -25,45 +26,90 @@ interface ChallengesProviderProps {
 
 export const ChallengesContext = createContext({} as ChallengesContextData);
 
-export function ChallengesProvider({ children } : ChallengesProviderProps) {
+export function ChallengesProvider({ children }: ChallengesProviderProps) {
   const [level, setLevel] = useState(1);
   const [currentExperience, setCurrentExperience] = useState(0);
   const [challengesCompleted, setChallengesCompleted] = useState(0);
 
   const [activeChallenge, setActiveChallenge] = useState(null);
-
-  const experienceToNextLevel = Math.pow((level + 1) * 4, 2); /* Calculo usado para RPG's, procurado na internet */
+  /* Calculo usado para RPG's, procurado na internet */
+  const experienceToNextLevel = Math.pow((level + 1) * 4, 2);
+  /*
+    Array vazio significa que o componente será executado uma única vez quando a 
+    pagina for carregada.
+  */
+  useEffect(() => {
+    /* Api de notificações do browser, já é nativa */
+    Notification.requestPermission();
+  }, []);
 
   function levelUp() {
     setLevel(level + 1);
   }
 
   function startNewChallenge() {
-  /* floor porque ele pode retornar numeros quebrados */
-    const randomChallengeIndex = Math.floor(Math.random() * challenges.length); 
+    /* floor porque ele pode retornar numeros quebrados */
+    const randomChallengeIndex = Math.floor(Math.random() * challenges.length);
     const challenge = challenges[randomChallengeIndex];
 
     setActiveChallenge(challenge);
+
+    new Audio("/notification.mp3").play(); /*public/*/
+
+    if (Notification.permission === "granted") {
+      new Notification("Novo desafio 🎉", {
+        body: `Valendo ${challenge.amount}xp!`,
+        silent: true,
+      });
+    }
   }
 
   function resetChallenge() {
     setActiveChallenge(null);
   }
 
+  function completeChallenge() {
+    if (!activeChallenge) {
+      return;
+    }
+
+    const { amount } = activeChallenge;
+
+    let finalExperience = currentExperience + amount;
+
+    if (finalExperience >= experienceToNextLevel) {
+      /*
+        Caso upe de nível, zera o nível de experiência e ele vai ficar com a nova 
+        experiência atual.
+        Exemplo: Exp atual: 80, falta pra upar: 80, ganhou 80 em missão: 
+        80 + 80 = 160, mas ele precisa só de 120 pra upar
+        Então zera a exp e upa de nível e os 40 restantes dos 160, 
+        adiciona no próximo nível
+      */
+      finalExperience = finalExperience - experienceToNextLevel;
+      levelUp();
+    }
+
+    setCurrentExperience(finalExperience);
+    setActiveChallenge(null);
+    setChallengesCompleted(challengesCompleted + 1);
+  }
+
   return (
-    <ChallengesContext.Provider 
-      value={ { 
-        level, 
+    <ChallengesContext.Provider
+      value={{
+        level,
         currentExperience,
         experienceToNextLevel,
-        challengesCompleted, 
+        challengesCompleted,
         levelUp,
         startNewChallenge,
         activeChallenge,
-        resetChallenge
+        resetChallenge,
+        completeChallenge,
       }}
     >
-      { children }
+      {children}
     </ChallengesContext.Provider>
-  )
+  );
 }
