@@ -1,2 +1,52 @@
+.overlay {
+  background-color: rgba(255, 255, 255, 0.8);
+  /* Fixo na tela independentemente se tem scroll ou não. */
+  position: fixed;
+  /* Ocupa a tela inteira*/
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /* Centraliza o conteúdo do modal */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .container {
+  background-color: var(--white);
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem 3rem;
+  border-radius: 5px;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  position: relative;
+}
+
+.container header {
+  font-size: 8.75rem;
+  font-weight: 600;
+  color: var(--blue);
+  background: url("/icons/levelup.svg") no-repeat;
+  background-size: contain;
+}
+
+.container strong {
+  font-size: 2.25rem;
+  color: var(--text);
+  margin-top: 0.25rem;
+}
+
+.container button {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  background-color: transparent;
+  border: 0;
+  /* 
+    Hack para diminuir o tamanho que o outline coloca sobre um ícone. Caso tenha
+    apenas um ícone, coloque font-size 0
+   */
+  font-size: 0px;
 }
