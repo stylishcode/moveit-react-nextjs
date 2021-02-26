@@ -28,7 +28,7 @@ let countdownTimeout: NodeJS.Timeout;
 export function CountdownProvider({ children }: ChallengesProviderProps) {
   const { startNewChallenge } = useContext(ChallengesContext);
 
-  const [time, setTime] = useState(0.1 * 60); /* 25 * 60 é 25min em segundos */
+  const [time, setTime] = useState(25 * 60); /* 25 * 60 é 25min em segundos */
   /* Verifica se o contador está parado ou em execução */
   const [isActive, setIsActive] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
@@ -45,7 +45,7 @@ export function CountdownProvider({ children }: ChallengesProviderProps) {
   function resetCountdown() {
     setIsActive(false);
     setHasFinished(false);
-    setTime(0.1 * 60); /* Volta ao valor inicial do useState */
+    setTime(25 * 60); /* Volta ao valor inicial do useState */
   }
 
   /* useEffect é uma função para disparar efeitos colaterais, ou seja, 
