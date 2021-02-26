@@ -1,6 +1,5 @@
 import '../styles/global.css';
-
-import { ChallengesContext, ChallengesProvider } from '../contexts/ChallengesContext';
+import { ChallengesProvider } from '../contexts/ChallengesContext';
  
 function MyApp({ Component, pageProps }) {
   return (
@@ -10,7 +9,12 @@ function MyApp({ Component, pageProps }) {
       aos dados do ChallengesContext
      */
     <ChallengesProvider>
-      <Component {...pageProps} />
+      {/* A ordem de englobação depende de qual componente depende de qual, no caso Countdown depende de Challenges, 
+      então ele vai depois. Comentei o Countdown aqui porque não preciso que todos os componentes saibam dele, apenas o componente
+      que vai precisar, então englobei a section que precisa dele no index.tsx */}
+      {/* <CountdownProvider>  */}
+        <Component {...pageProps} />
+      {/* </CountdownProvider> */}
     </ChallengesProvider>
   )
 }
